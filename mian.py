@@ -7,6 +7,7 @@ def add_watermark(image_path, watermark_text, output_path):
     size = 2
     n_font = ImageFont.truetype('arial.ttf', size)
     n_width, n_height = n_font.getsize(watermark_text)
+    
     while n_width+n_height < watermark.size[0]:
         size += 2
         n_font = ImageFont.truetype('arial.ttf', size)
@@ -17,6 +18,7 @@ def add_watermark(image_path, watermark_text, output_path):
               watermark_text, font=n_font, fill="#ffffff")
 
     watermarked = Image.alpha_composite(base_image.convert('RGBA'), watermark)
+    watermarked = watermarked.convert("RGB") # convert back to RGB
     watermarked.save(output_path, 'JPEG')
 
 add_watermark('wallpaper.jpg', 'Your Watermark', 'output.jpg')
